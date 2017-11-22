@@ -1,0 +1,53 @@
+---------------------------------- LICENSE ------------------------------------
+
+Copyright 2012-2017 Hanno Dietrich. This software is distributed under the GNU
+General Public License. It is an open-source code, distributed freely under the
+terms of the GNU Public License (GPL).
+
+-------------------------------- DISCLAIMER -----------------------------------
+
+This software is supplied "AS IS" without any warranties and support. We do
+neither assume any responsibility or liability for the use of the software, nor
+convey any license or title under any patent, copyright, or mask work right to
+the product.
+
+We reserve the right to make changes in the software without notification.
+We also make no representation or warranty that such application will be
+suitable for the specified use without further testing or modification.
+
+------------------------------- DOCUMENTATION ---------------------------------
+
+In order to add this feature to LAMMPS simply copy the files in the src/
+directory to the src/ directory of your LAMMPS distribution and re-compile
+LAMMPS.
+
+The format is simalar to that of the fix/wall command:
+
+fix ID group-ID style face args ... keyword value ...
+
+- ID, group-ID are documented in fix command
+- style = wall/pressure/lj93 or wall/pressure/lj126 or wall/pressure/lj1043
+  or wall/pressure/harmonic
+- one or more face/arg pairs may be appended
+- face = xlo or xhi or ylo or yhi or zlo or zhi
+
+args = coord epsilon sigma cutoff pressure density damping
+  coord = position of wall
+  epsilon = strength factor for wall-particle interaction
+    (energy or energy/distance^2 units)
+    epsilon can be a variable (see below)
+  sigma = size factor for wall-particle interaction
+    (distance units)
+    sigma can be a variable (see below)
+  cutoff = distance from wall at which wall-particle interaction is cut off
+    (distance units)
+  density = area density 
+    (mass units per (length unit)^2)
+  pressure = pressure applied to the wall
+    (pressure units)
+    pressure can be a variable (see below)
+  damping = damping factor applied to the wall's velocity to prevent "hopping"
+    must be in the range 0 to 1 with reasonable values close to 1
+
+example:
+fix piston all wall/pressure/harmonic zhi 71.0 0.20 0.0 5 1.0 1 0.995
